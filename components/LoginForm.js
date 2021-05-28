@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Text, TextInput, View, Picker} from "react-native";
-import {StyleSheet} from "react-native";
+import {Button, Text, TextInput, View, Picker, StyleSheet} from "react-native";
 import axios from "axios";
 import ServerUrl from "../ServerUrl"
 import ErrorMessage from "./ErrorMessage";
@@ -64,6 +63,7 @@ class LoginForm extends Component {
             .then((response) => {
                 this.setState({showErrorMessage: false})
                 localStorage.setItem("authToken", response.data.token)
+                this.props.navigation.navigate("Home")
             })
             .catch(() => {
                 this.setState({showErrorMessage: true})
