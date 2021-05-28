@@ -53,13 +53,17 @@ class LoginForm extends Component {
             this.setState({buttonDisabled: true})
     }
 
+    /**
+     * Authenticate or not after submiting form
+     */
     submitForm = () => {
         axios.post(`${ServerUrl}gettoken`, {
             initials: this.state.initials,
             password: this.state.password,
         })
-            .then(() => {
+            .then((response) => {
                 this.setState({showErrorMessage: false})
+                localStorage.setItem("authToken", response.data.token)
             })
             .catch(() => {
                 this.setState({showErrorMessage: true})
