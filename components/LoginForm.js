@@ -3,6 +3,7 @@ import {Button, Text, TextInput, View, Picker} from "react-native";
 import {StyleSheet} from "react-native";
 import axios from "axios";
 import ServerUrl from "../ServerUrl"
+import ErrorMessage from "./ErrorMessage";
 
 class LoginForm extends Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class LoginForm extends Component {
             buttonDisabled: true,
             initials: "",
             password: "",
+            showErrorMessage: false,
         };
     }
 
@@ -51,10 +53,24 @@ class LoginForm extends Component {
             this.setState({buttonDisabled: true})
     }
 
+    submitForm = () => {
+        axios.post(`${ServerUrl}gettoken`, {
+            initials: this.state.initials,
+            password: this.state.password,
+        })
+            .then(() => {
+                this.setState({showErrorMessage: false})
+            })
+            .catch(() => {
+                this.setState({showErrorMessage: true})
+            })
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Connexion</Text>
+                {this.state.showErrorMessage ? <ErrorMessage message={"Les données entrées sont incorrectes"}/> : null}
                 <TextInput style={styles.input} placeholder="Initiales" autoFocus={true}
                            onChangeText={(value) => this.handleTextChange("initials", value)}/>
                 <TextInput style={styles.input} placeholder="Mot de passe" secureTextEntry={true}
@@ -62,7 +78,8 @@ class LoginForm extends Component {
                 <Picker style={styles.picker}>
                     {this.state.bases.map(base => <Picker.Item key={base.id} label={base.name} value={base.name}/>)}
                 </Picker>
-                <Button title="Connexion" color="#326fa8" disabled={this.state.buttonDisabled} onPress={this.submitForm}/>
+                <Button title="Connexion" color="#326fa8" disabled={this.state.buttonDisabled}
+                        onPress={this.submitForm}/>
             </View>
         );
     }
