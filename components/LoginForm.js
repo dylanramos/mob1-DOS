@@ -11,7 +11,7 @@ class LoginForm extends Component {
         this.state = {
             bases: [],
             buttonDisabled: true,
-            username: "",
+            initials: "",
             password: "",
         };
     }
@@ -45,7 +45,7 @@ class LoginForm extends Component {
      * Enable or disable the submit button
      */
     changeButtonState = () => {
-        if (this.state.username !== "" && this.state.password !== "")
+        if (this.state.initials !== "" && this.state.password !== "")
             this.setState({buttonDisabled: false})
         else
             this.setState({buttonDisabled: true})
@@ -55,14 +55,14 @@ class LoginForm extends Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Connexion</Text>
-                <TextInput style={styles.input} placeholder="Nom d'utilisateur" autoFocus={true}
-                           onChangeText={(value) => this.handleTextChange("username", value)}/>
+                <TextInput style={styles.input} placeholder="Initiales" autoFocus={true}
+                           onChangeText={(value) => this.handleTextChange("initials", value)}/>
                 <TextInput style={styles.input} placeholder="Mot de passe" secureTextEntry={true}
                            onChangeText={(value) => this.handleTextChange("password", value)}/>
                 <Picker style={styles.picker}>
                     {this.state.bases.map(base => <Picker.Item key={base.id} label={base.name} value={base.name}/>)}
                 </Picker>
-                <Button title="Connexion" color="#326fa8" disabled={this.state.buttonDisabled}/>
+                <Button title="Connexion" color="#326fa8" disabled={this.state.buttonDisabled} onPress={this.submitForm}/>
             </View>
         );
     }
