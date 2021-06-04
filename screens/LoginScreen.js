@@ -74,14 +74,12 @@ export default class LoginScreen extends React.Component {
         axios.post(`${ServerUrl}gettoken`, {
             initials: this.state.initials,
             password: this.state.password,
+        }).then((response) => {
+            this.setState({showErrorMessage: false})
+            this.props.authenticate(this.state.initials, this.state.base, response.data.token)
+        }).catch(() => {
+            this.setState({showErrorMessage: true})
         })
-            .then((response) => {
-                this.setState({showErrorMessage: false})
-                this.props.authenticate(this.state.initials, this.state.base, response.data.token)
-            })
-            .catch(() => {
-                this.setState({showErrorMessage: true})
-            })
     }
 
     render() {
