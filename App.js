@@ -1,13 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
+import ConsultationsScreen from "./screens/ConsultationsScreen";
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-export default class App extends Component {
+export default class App extends React.Component {
     constructor(props) {
         super(props);
 
@@ -36,17 +39,23 @@ export default class App extends Component {
     render() {
         return (
             <NavigationContainer>
-                <Stack.Navigator screenOptions={{headerShown: false}}>
-                    {this.state.authToken == null ? (
+                {this.state.authToken == null ? (
+                    <Stack.Navigator screenOptions={{headerShown: false}}>
                         <Stack.Screen name="Login">{() => <LoginScreen
                             authenticate={this.authenticate}/>}</Stack.Screen>
-                    ) : (
-                        <Stack.Screen name="Home">
+                    </Stack.Navigator>
+                ) : (
+                    <Tab.Navigator>
+                        <Tab.Screen name="Home">
                             {() => <HomeScreen user={this.state.user} base={this.state.base}
                                                authToken={this.state.authToken}/>}
-                        </Stack.Screen>
-                    )}
-                </Stack.Navigator>
+                        </Tab.Screen>
+                        <Tab.Screen name="Reports">
+                            {() => <ConsultationsScreen user={this.state.user} base={this.state.base}
+                                                        authToken={this.state.authToken}/>}
+                        </Tab.Screen>
+                    </Tab.Navigator>
+                )}
             </NavigationContainer>
         );
     }
