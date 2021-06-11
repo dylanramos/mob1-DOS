@@ -2,14 +2,13 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ConsultationsScreen from "./screens/ConsultationsScreen";
 import LogoutScreen from "./screens/LogoutScreen";
+import ActionsInShiftScreen from "./screens/ActionsInShiftScreen";
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
 export default class App extends React.Component {
     constructor(props) {
@@ -53,19 +52,23 @@ export default class App extends React.Component {
                             authenticate={this.authenticate}/>}</Stack.Screen>
                     </Stack.Navigator>
                 ) : (
-                    <Tab.Navigator>
-                        <Tab.Screen name="Home">
-                            {() => <HomeScreen user={this.state.user} base={this.state.base}
-                                               authToken={this.state.authToken}/>}
-                        </Tab.Screen>
-                        <Tab.Screen name="Rapports">
-                            {() => <ConsultationsScreen user={this.state.user} base={this.state.base}
-                                                        authToken={this.state.authToken}/>}
-                        </Tab.Screen>
-                        <Tab.Screen name="Déconnexion">
-                            {() => <LogoutScreen user={this.state.user} base={this.state.base} disconnect={this.disconnect}/>}
-                        </Tab.Screen>
-                    </Tab.Navigator>
+                    <Stack.Navigator>
+                        <Stack.Screen name="Home" options={{title: "Menu"}}>
+                            {props => <HomeScreen {...props} user={this.state.user} base={this.state.base}
+                                                  authToken={this.state.authToken}/>}
+                        </Stack.Screen>
+                        <Stack.Screen name="Reports" options={{title: "Rapports"}}>
+                            {props => <ConsultationsScreen {...props} user={this.state.user} base={this.state.base}
+                                                           authToken={this.state.authToken}/>}
+                        </Stack.Screen>
+                        <Stack.Screen name="Logout" options={{title: "Déconnexion"}}>
+                            {() => <LogoutScreen user={this.state.user} base={this.state.base}
+                                                 disconnect={this.disconnect}/>}
+                        </Stack.Screen>
+                        <Stack.Screen name="ActionsInShift" options={{title: "Actions"}}>
+                            {() => <ActionsInShiftScreen/>}
+                        </Stack.Screen>
+                    </Stack.Navigator>
                 )}
             </NavigationContainer>
         );

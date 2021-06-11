@@ -1,10 +1,17 @@
 import React from "react";
-import {View} from "react-native";
+import {View, Button} from "react-native";
 
-export default function LoginScreen() {
-    return (
-        <View>
+export default class HomeScreen extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-        </View>
-    )
+    render() {
+        return (
+            <View>
+                <Button title="Rapports" color="#326fa8" onPress={() => this.props.navigation.navigate("Reports")}/>
+                <Button title="Déconnexion" color="#326fa8" onPress={() => this.props.navigation.navigate("Logout")}/>
+            </View>
+        )
+    }
 }
