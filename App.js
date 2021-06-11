@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ConsultationsScreen from "./screens/ConsultationsScreen";
+import LogoutScreen from "./screens/LogoutScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,11 +29,18 @@ export default class App extends React.Component {
      * @param authToken
      */
     authenticate = (user, base, authToken) => {
-        console.log(user, base, authToken)
         this.setState({
             user: user,
             base: base,
             authToken: authToken,
+        })
+    }
+
+    disconnect = () => {
+        this.setState({
+            user: null,
+            base: null,
+            authToken: null,
         })
     }
 
@@ -50,9 +58,12 @@ export default class App extends React.Component {
                             {() => <HomeScreen user={this.state.user} base={this.state.base}
                                                authToken={this.state.authToken}/>}
                         </Tab.Screen>
-                        <Tab.Screen name="Reports">
+                        <Tab.Screen name="Rapports">
                             {() => <ConsultationsScreen user={this.state.user} base={this.state.base}
                                                         authToken={this.state.authToken}/>}
+                        </Tab.Screen>
+                        <Tab.Screen name="Déconnexion">
+                            {() => <LogoutScreen user={this.state.user} base={this.state.base} disconnect={this.disconnect}/>}
                         </Tab.Screen>
                     </Tab.Navigator>
                 )}
