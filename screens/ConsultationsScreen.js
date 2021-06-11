@@ -56,13 +56,13 @@ export default class ConsultationsScreen extends React.Component {
                 {this.state.drugsButtonDisabled ? (
                     <FlatList
                         data={this.state.drugs}
-                        renderItem={({item}) => (<Text>Le {item.date} à {item.base}</Text>)}
+                        renderItem={({item}) => (<Text>Semaine {item.week} à {item.base}</Text>)}
                         keyExtractor={item => item.id.toString()}
                     />
                 ) : (
                     <FlatList
                         data={this.state.shifts}
-                        renderItem={({item}) => (<Text>Le {item.date} à {item.base}</Text>)}
+                        renderItem={({item}) => (<Text onPress={() => this.props.navigation.navigate("ActionsInShift", item.id)}>Le {item.date} à {item.base}</Text>)}
                         keyExtractor={item => item.id.toString()}
                     />
                 )}

@@ -66,7 +66,7 @@ export default class App extends React.Component {
                                                  disconnect={this.disconnect}/>}
                         </Stack.Screen>
                         <Stack.Screen name="ActionsInShift" options={{title: "Actions"}}>
-                            {props => <ActionsInShiftScreen {...props}/>}
+                            {props => <ActionsInShiftScreen {...props} authToken={this.state.authToken}/>}
                         </Stack.Screen>
                     </Stack.Navigator>
                 )}
