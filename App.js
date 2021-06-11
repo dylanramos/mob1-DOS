@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ConsultationsScreen from "./screens/ConsultationsScreen";
+import ReportScreen from "./screens/ReportScreen";
 import LogoutScreen from "./screens/LogoutScreen";
 import ActionsInShiftScreen from "./screens/ActionsInShiftScreen";
 
@@ -57,8 +58,12 @@ export default class App extends React.Component {
                             {props => <HomeScreen {...props} user={this.state.user} base={this.state.base}
                                                   authToken={this.state.authToken}/>}
                         </Stack.Screen>
-                        <Stack.Screen name="Reports" options={{title: "Rapports"}}>
+                        <Stack.Screen name="Consultation" options={{title: "Consultation"}}>
                             {props => <ConsultationsScreen {...props} user={this.state.user} base={this.state.base}
+                                                           authToken={this.state.authToken}/>}
+                        </Stack.Screen>
+                        <Stack.Screen name="Report" options={{title: "Rapporter"}}>
+                            {props => <ReportScreen {...props} user={this.state.user} base={this.state.base}
                                                            authToken={this.state.authToken}/>}
                         </Stack.Screen>
                         <Stack.Screen name="Logout" options={{title: "Déconnexion"}}>

@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Button, StyleSheet} from "react-native";
+import {View, Text, Button, StyleSheet} from "react-native";
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
@@ -9,9 +9,10 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Button title="Consulter" color="#326fa8" onPress={() => this.props.navigation.navigate("Consultation")}/>
-                <Button title="Rapporter" color="#326fa8" onPress={() => this.props.navigation.navigate("Report")}/>
-                <Button title="Déconnexion" color="#326fa8" onPress={() => this.props.navigation.navigate("Logout")}/>
+                <text>Faire un</text>
+                <Button title="PharmaCheck" color="#326fa8"/>
+                <Button title="NovaCheck" color="#326fa8"/>
+                <Text>à {this.props.base}</Text>
             </View>
         )
     }

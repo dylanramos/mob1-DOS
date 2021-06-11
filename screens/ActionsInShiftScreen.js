@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, FlatList} from "react-native";
+import {View, Text, FlatList, StyleSheet} from "react-native";
 import axios from "axios";
 import ServerUrl from "../ServerUrl";
 
@@ -28,7 +28,7 @@ export default class ActionsInShiftScreen extends React.Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <FlatList
                     data={this.state.actions}
                     renderItem={({item}) => (<Text>{item.action} - {item.at}</Text>)}
@@ -38,3 +38,13 @@ export default class ActionsInShiftScreen extends React.Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        maxWidth: 480,
+        backgroundColor: "#f0f2f5",
+        padding: 20,
+        alignItems: "center",
+    },
+});
