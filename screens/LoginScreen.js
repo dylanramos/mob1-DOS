@@ -27,7 +27,7 @@ export default class LoginScreen extends React.Component {
                 this.setState({bases: res.data})
 
                 //Set the first base as default
-                this.handlePickerChange(this.state.bases[0].name)
+                this.handlePickerChange(this.state.bases[0].id)
             })
     }
 
@@ -50,9 +50,12 @@ export default class LoginScreen extends React.Component {
      * @param value
      */
     handlePickerChange = (value) => {
+        // Search in the bases array the id and the name of the base
+        let base = this.state.bases.find(base => base.id === parseInt(value))
+
         this.setState(
             {
-                base: value
+                base: base
             }
         )
     }
@@ -94,7 +97,7 @@ export default class LoginScreen extends React.Component {
                     <TextInput style={styles.input} placeholder="Mot de passe" secureTextEntry={true}
                                onChangeText={(value) => this.handleTextChange("password", value)}/>
                     <Picker style={styles.picker} onValueChange={this.handlePickerChange}>
-                        {this.state.bases.map(base => <Picker.Item key={base.id} label={base.name} value={base.name}/>)}
+                        {this.state.bases.map(base => <Picker.Item key={base.id} label={base.name} value={base.id}/>)}
                     </Picker>
                     <Button title="Connexion" color="#326fa8" disabled={this.state.buttonDisabled}
                             onPress={this.submitForm}/>

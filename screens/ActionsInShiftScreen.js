@@ -22,7 +22,6 @@ export default class ActionsInShiftScreen extends React.Component {
             }
         }).then(res => {
             this.setState({actions: [...res.data.data]})
-            console.log(this.state.actions)
         })
     }
 

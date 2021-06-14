@@ -9,7 +9,7 @@ export default class LogoutScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>{this.props.user}@{this.props.base}</Text>
+                <Text style={styles.title}>{this.props.user}@{this.props.base.name}</Text>
                 <Button title="Déconnexion" color="#cc2200" onPress={this.props.disconnect}/>
             </View>
         )
