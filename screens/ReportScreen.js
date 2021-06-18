@@ -15,6 +15,9 @@ export default class HomeScreen extends React.Component {
         }
     }
 
+    /**
+     * Make an api call to get all the missing checks
+     */
     componentDidMount() {
         axios.get(`${ServerUrl}missingchecks/${this.props.base.id}`, {
             headers: {
@@ -46,16 +49,16 @@ export default class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Text>Faire un</Text>
-                <Button title="PharmaCheck" color="#326fa8" disabled={this.state.novaButtonDisabled}
+                <Button title="NovaCheck" color="#326fa8" disabled={this.state.novaButtonDisabled}
                         onPress={this.handleTabChange}/>
-                <Button title="NovaCheck" color="#326fa8" disabled={!this.state.novaButtonDisabled}
+                <Button title="PharmaCheck" color="#326fa8" disabled={!this.state.novaButtonDisabled}
                         onPress={this.handleTabChange}/>
                 <Text>à {this.props.base.name}</Text>
                 <View>
                     {this.state.novaButtonDisabled ? (
                         <FlatList
                             data={this.state.nova}
-                            renderItem={({item}) => (<NovaCheckForm novaCheck={item}/>)}
+                            renderItem={({item}) => (<NovaCheckForm novaCheck={item} authToken={this.props.authToken}/>)}
                             keyExtractor={(item, index) => index.toString()}
                         />
                     ) : (
