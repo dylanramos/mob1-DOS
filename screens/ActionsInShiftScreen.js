@@ -28,13 +28,19 @@ export default class ActionsInShiftScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Dans le rapport
+                <Text style={styles.title}>Dans le rapport
                     du {this.props.route.params.itemDate} à {this.props.route.params.itemBase}</Text>
-                <FlatList
-                    data={this.state.actions}
-                    renderItem={({item}) => (<Text>{item.action} - {item.at}</Text>)}
-                    keyExtractor={item => item.id.toString()}
-                />
+                <View style={styles.itemsContainer}>
+                    <FlatList
+                        data={this.state.actions}
+                        renderItem={({item}) => (<View style={styles.item}>
+                                <Text style={styles.itemTitle}>{item.action}</Text>
+                                <Text>{item.at}</Text>
+                            </View>
+                            )}
+                        keyExtractor={item => item.id.toString()}
+                    />
+                </View>
             </View>
         )
     }
@@ -48,4 +54,17 @@ const styles = StyleSheet.create({
         padding: 20,
         alignItems: "center",
     },
+    title: {
+        fontSize: 15,
+        fontWeight: "bold",
+    },
+    itemsContainer: {
+        marginTop: 20,
+    },
+    item: {
+        marginBottom: 20,
+    },
+    itemTitle: {
+        color: "#326fa8",
+    }
 });
