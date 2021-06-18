@@ -33,6 +33,10 @@ export default class NovaCheckForm extends React.Component {
             this.setState({
                 submitButtonDisabled: false
             })
+        else
+            this.setState({
+                submitButtonDisabled: true
+            })
     }
 
     /**
