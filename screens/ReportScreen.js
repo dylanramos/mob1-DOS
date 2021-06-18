@@ -3,6 +3,7 @@ import {View, Text, Button, StyleSheet, FlatList} from "react-native";
 import axios from "axios";
 import ServerUrl from "../ServerUrl";
 import NovaCheckForm from "../components/NovaCheckForm";
+import PharmaCheckForm from "../components/PharmaCheckForm";
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
@@ -64,7 +65,7 @@ export default class HomeScreen extends React.Component {
                     ) : (
                         <FlatList
                             data={this.state.pharma}
-                            renderItem={({item}) => (<Text>{item.id}</Text>)}
+                            renderItem={({item}) => (<PharmaCheckForm pharmaCheck={item} authToken={this.props.authToken}/>)}
                             keyExtractor={(item, index) => index.toString()}
                         />
                     )}
