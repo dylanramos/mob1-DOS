@@ -36,6 +36,9 @@ export default class App extends React.Component {
         })
     }
 
+    /**
+     * Clear the credentials of the connected user
+     */
     disconnect = () => {
         this.setState({
             user: null,
