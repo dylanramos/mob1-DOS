@@ -2,6 +2,7 @@ import React from "react";
 import {View, Text, FlatList, StyleSheet} from "react-native";
 import axios from "axios";
 import ServerUrl from "../ServerUrl";
+import ErrorMessage from "../components/ErrorMessage";
 
 export default class ActionsInShiftScreen extends React.Component {
     constructor(props) {
@@ -21,26 +22,32 @@ export default class ActionsInShiftScreen extends React.Component {
                 'Authorization': `Bearer ${this.props.authToken}`
             }
         }).then(res => {
-            this.setState({actions: [...res.data.data]}, () => console.log(this.state.actions))
+            this.setState({actions: [...res.data.data]})
         })
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Dans le rapport
-                    du {this.props.route.params.itemDate} à {this.props.route.params.itemBase}</Text>
-                <View style={styles.itemsContainer}>
-                    <FlatList
-                        data={this.state.actions}
-                        renderItem={({item}) => (<View style={styles.item}>
-                                <Text style={styles.itemTitle}>{item.action}</Text>
-                                <Text>{item.at}</Text>
-                            </View>
-                            )}
-                        keyExtractor={item => item.id.toString()}
-                    />
-                </View>
+                {this.state.actions.length > 0 ? (
+                    <View>
+                        <Text style={styles.title}>Dans le rapport
+                            du {this.props.route.params.itemDate} à {this.props.route.params.itemBase}</Text>
+                        <View style={styles.itemsContainer}>
+                            <FlatList
+                                data={this.state.actions}
+                                renderItem={({item}) => (<View style={styles.item}>
+                                        <Text style={styles.itemTitle}>{item.action}</Text>
+                                        <Text>{item.at}</Text>
+                                    </View>
+                                )}
+                                keyExtractor={item => item.id.toString()}
+                            />
+                        </View>
+                    </View>
+                ) : (
+                    <ErrorMessage message={"Aucune action n'a été exécutée."}/>
+                )}
             </View>
         )
     }
