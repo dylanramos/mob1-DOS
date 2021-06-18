@@ -81,7 +81,11 @@ export default class ConsultationsScreen extends React.Component {
                                 renderItem={({item}) => (<View
                                     style={styles.itemContainer}>
                                     <Text style={styles.item}
-                                          onPress={() => this.props.navigation.navigate("ActionsInShift", item.id)}>Le {item.date} à {item.base}</Text>
+                                          onPress={() => this.props.navigation.navigate("ActionsInShift", {
+                                              itemId: item.id,
+                                              itemDate: item.date,
+                                              itemBase: item.base
+                                          })}>Le {item.date} à {item.base}</Text>
                                 </View>)}
                                 keyExtractor={item => item.id.toString()}
                             />

@@ -16,18 +16,20 @@ export default class ActionsInShiftScreen extends React.Component {
      * Load the actions using the api
      */
     componentDidMount() {
-        axios.get(`${ServerUrl}myactionsinshift/${this.props.route.params}`, {
+        axios.get(`${ServerUrl}myactionsinshift/${this.props.route.params.itemId}`, {
             headers: {
                 'Authorization': `Bearer ${this.props.authToken}`
             }
         }).then(res => {
-            this.setState({actions: [...res.data.data]})
+            this.setState({actions: [...res.data.data]}, () => console.log(this.state.actions))
         })
     }
 
     render() {
         return (
             <View style={styles.container}>
+                <Text>Dans le rapport
+                    du {this.props.route.params.itemDate} à {this.props.route.params.itemBase}</Text>
                 <FlatList
                     data={this.state.actions}
                     renderItem={({item}) => (<Text>{item.action} - {item.at}</Text>)}
