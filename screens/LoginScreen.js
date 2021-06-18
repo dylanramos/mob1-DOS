@@ -14,7 +14,8 @@ export default class LoginScreen extends React.Component {
             initials: null,
             password: null,
             base: null,
-            showErrorMessage: false,
+            showCredentialsErrorMessage: false,
+            showBasesErrorMessage: false,
         };
     }
 
@@ -28,6 +29,11 @@ export default class LoginScreen extends React.Component {
 
                 //Set the first base as default
                 this.handlePickerChange(this.state.bases[0].id)
+            })
+            .catch(() => {
+                this.setState({
+                    showBasesErrorMessage: true
+                })
             })
     }
 
@@ -78,30 +84,35 @@ export default class LoginScreen extends React.Component {
             initials: this.state.initials,
             password: this.state.password,
         }).then((response) => {
-            this.setState({showErrorMessage: false})
+            this.setState({showCredentialsErrorMessage: false})
             this.props.authenticate(this.state.initials, this.state.base, response.data.token)
         }).catch(() => {
-            this.setState({showErrorMessage: true})
+            this.setState({showCredentialsErrorMessage: true})
         })
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.form}>
-                    <Text style={styles.title}>Connexion</Text>
-                    {this.state.showErrorMessage ?
-                        <ErrorMessage message={"Les données entrées sont incorrectes"}/> : null}
-                    <TextInput style={styles.input} placeholder="Initiales" autoFocus={true}
-                               onChangeText={(value) => this.handleTextChange("initials", value)}/>
-                    <TextInput style={styles.input} placeholder="Mot de passe" secureTextEntry={true}
-                               onChangeText={(value) => this.handleTextChange("password", value)}/>
-                    <Picker style={styles.picker} onValueChange={this.handlePickerChange}>
-                        {this.state.bases.map(base => <Picker.Item key={base.id} label={base.name} value={base.id}/>)}
-                    </Picker>
-                    <Button title="Connexion" color="#326fa8" disabled={this.state.buttonDisabled}
-                            onPress={this.submitForm}/>
-                </View>
+                {this.state.showBasesErrorMessage ? (
+                    <ErrorMessage message={"Une erreur est survenue veuillez vérifier votre connexion internet."}/>
+                ) : (
+                    <View style={styles.form}>
+                        <Text style={styles.title}>Connexion</Text>
+                        {this.state.showCredentialsErrorMessage ?
+                            <ErrorMessage message={"Les données entrées sont incorrectes"}/> : null}
+                        <TextInput style={styles.input} placeholder="Initiales" autoFocus={true}
+                                   onChangeText={(value) => this.handleTextChange("initials", value)}/>
+                        <TextInput style={styles.input} placeholder="Mot de passe" secureTextEntry={true}
+                                   onChangeText={(value) => this.handleTextChange("password", value)}/>
+                        <Picker style={styles.picker} onValueChange={this.handlePickerChange}>
+                            {this.state.bases.map(base => <Picker.Item key={base.id} label={base.name}
+                                                                       value={base.id}/>)}
+                        </Picker>
+                        <Button title="Connexion" color="#326fa8" disabled={this.state.buttonDisabled}
+                                onPress={this.submitForm}/>
+                    </View>
+                )}
             </View>
         );
     }
@@ -115,6 +126,7 @@ const styles = StyleSheet.create({
         padding: 20,
         justifyContent: "center",
         alignItems: "center",
+        textAlign: "center",
     },
     form: {
         width: "75%",
