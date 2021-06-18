@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, Button, TextInput, StyleSheet} from "react-native";
+import {View, Text, Button, TextInput, StyleSheet, Alert} from "react-native";
 import axios from "axios";
 import ServerUrl from "../ServerUrl";
 
@@ -54,6 +54,18 @@ export default class PharmaCheckForm extends React.Component {
                 'Authorization': `Bearer ${this.props.authToken}`
             }
         })
+
+        this.displayAlert()
+    }
+
+    /**
+     * Display an alert saying that the form has been sent
+     */
+    displayAlert = () => {
+        // Browser
+        alert("Le rapport a bien été envoyé.")
+        // Mobile
+        Alert.alert("Rapport","Le rapport a bien été envoyé.", [{text: "OK"}])
     }
 
     render() {
