@@ -64,20 +64,29 @@ export default class ConsultationsScreen extends React.Component {
                         <Button title="Garde" color="#326fa8" disabled={!this.state.drugsButtonDisabled}
                                 onPress={this.handleTabChange}/>
                     </View>
-                    {this.state.drugsButtonDisabled ? (
-                        <FlatList
-                            data={this.state.drugs}
-                            renderItem={({item}) => (<Text>Semaine {item.week} à {item.base}</Text>)}
-                            keyExtractor={item => item.id.toString()}
-                        />
-                    ) : (
-                        <FlatList
-                            data={this.state.shifts}
-                            renderItem={({item}) => (<Text
-                                onPress={() => this.props.navigation.navigate("ActionsInShift", item.id)}>Le {item.date} à {item.base}</Text>)}
-                            keyExtractor={item => item.id.toString()}
-                        />
-                    )}
+                    <View style={styles.listContainer}>
+                        {this.state.drugsButtonDisabled ? (
+
+                            <FlatList
+                                data={this.state.drugs}
+                                renderItem={({item}) => (<View
+                                    style={styles.itemContainer}>
+                                    <Text style={styles.item}>Semaine {item.week} à {item.base}</Text>
+                                </View>)}
+                                keyExtractor={item => item.id.toString()}
+                            />
+                        ) : (
+                            <FlatList
+                                data={this.state.shifts}
+                                renderItem={({item}) => (<View
+                                    style={styles.itemContainer}>
+                                    <Text style={styles.item}
+                                          onPress={() => this.props.navigation.navigate("ActionsInShift", item.id)}>Le {item.date} à {item.base}</Text>
+                                </View>)}
+                                keyExtractor={item => item.id.toString()}
+                            />
+                        )}
+                    </View>
                 </View>
             )
         )
@@ -90,12 +99,23 @@ const styles = StyleSheet.create({
         maxWidth: 480,
         backgroundColor: "#f0f2f5",
         padding: 20,
-        justifyContent: "center",
         alignItems: "center",
-        textAlign: "Center",
+        textAlign: "center",
     },
     buttonsContainer: {
         maxWidth: 480,
         flexDirection: "row",
     },
+    listContainer: {
+        marginTop: 20,
+    },
+    itemContainer: {
+        borderWidth: 1,
+        padding: 10,
+        margin: 10,
+        backgroundColor: "#326fa8",
+    },
+    item: {
+        color: "#ffffff",
+    }
 });

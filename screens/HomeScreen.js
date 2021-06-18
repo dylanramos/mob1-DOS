@@ -9,9 +9,20 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Button title="Consulter" color="#326fa8" onPress={() => this.props.navigation.navigate("Consultation")}/>
-                <Button title="Rapporter" color="#326fa8" onPress={() => this.props.navigation.navigate("Report")}/>
-                <Button title="Déconnexion" color="#326fa8" onPress={() => this.props.navigation.navigate("Logout")}/>
+                <View>
+                    <View style={styles.buttonContainer}>
+                        <Button title="Consulter" color="#326fa8"
+                                onPress={() => this.props.navigation.navigate("Consultation")}/>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button title="Rapporter" color="#326fa8"
+                                onPress={() => this.props.navigation.navigate("Report")}/>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button title="Déconnexion" color="#326fa8"
+                                onPress={() => this.props.navigation.navigate("Logout")}/>
+                    </View>
+                </View>
             </View>
         )
     }
@@ -24,5 +35,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#f0f2f5",
         padding: 20,
         alignItems: "center",
+        justifyContent: "center",
     },
+    buttonContainer: {
+        marginBottom: 10,
+    }
 });

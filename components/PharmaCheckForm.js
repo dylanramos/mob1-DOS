@@ -65,22 +65,26 @@ export default class PharmaCheckForm extends React.Component {
         // Browser
         alert("Le rapport a bien été envoyé.")
         // Mobile
-        Alert.alert("Rapport","Le rapport a bien été envoyé.", [{text: "OK"}])
+        Alert.alert("Rapport", "Le rapport a bien été envoyé.", [{text: "OK"}])
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Du lot {this.props.pharmaCheck.batch_number} de {this.props.pharmaCheck.drug}</Text>
+                <Text style={styles.title}>Du
+                    lot {this.props.pharmaCheck.batch_number} de {this.props.pharmaCheck.drug}</Text>
                 <Text>pour le {this.props.pharmaCheck.date}</Text>
-                <Text style={styles.title}>Matin:</Text><TextInput style={styles.textInput}
-                                                                   keyboardType="numeric"
-                                                                   value={this.state.start !== null ? this.state.start : ""}
-                                                                   onChangeText={(value) => this.handleTextInputChange("start", value)}/>
-                <Text style={styles.title}>Soir:</Text><TextInput style={styles.textInput}
-                                                                  keyboardType="numeric"
-                                                                  value={this.state.end !== null ? this.state.end : ""}
-                                                                  onChangeText={(value) => this.handleTextInputChange("end", value)}/>
+                <View style={styles.textInputsContainer}>
+                    <Text style={styles.title}>Matin: </Text><TextInput style={styles.textInput}
+                                                                        keyboardType="numeric"
+                                                                        value={this.state.start !== null ? this.state.start : ""}
+                                                                        onChangeText={(value) => this.handleTextInputChange("start", value)}/>
+                    <Text style={styles.title}> Soir: </Text><TextInput style={styles.textInput}
+                                                                        keyboardType="numeric"
+                                                                        value={this.state.end !== null ? this.state.end : ""}
+                                                                        onChangeText={(value) => this.handleTextInputChange("end", value)}/>
+                </View>
+
                 <Button title="Envoyer" color="#326fa8" onPress={this.submitForm}
                         disabled={this.state.submitButtonDisabled}/>
             </View>
@@ -90,7 +94,7 @@ export default class PharmaCheckForm extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        maxWidth: 480,
+        width: 300,
         backgroundColor: "#d6d4ce",
         padding: 10,
         margin: 10,
@@ -103,5 +107,9 @@ const styles = StyleSheet.create({
     textInput: {
         width: 30,
         backgroundColor: "#ffffff",
+    },
+    textInputsContainer: {
+        flexDirection: "row",
+        margin: 10,
     }
 });

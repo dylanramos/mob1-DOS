@@ -57,12 +57,12 @@ export default class HomeScreen extends React.Component {
                     <ErrorMessage message={"Une erreur est survenue veuillez vérifier votre connexion internet."}/>
                 ) : (
                     <View>
-                        <Text>Faire un</Text>
+                        <Text style={styles.title}>Faire un</Text>
                         <Button title="NovaCheck" color="#326fa8" disabled={this.state.novaButtonDisabled}
                                 onPress={this.handleTabChange}/>
                         <Button title="PharmaCheck" color="#326fa8" disabled={!this.state.novaButtonDisabled}
                                 onPress={this.handleTabChange}/>
-                        <Text>à {this.props.base.name}</Text>
+                        <Text style={styles.title}>à {this.props.base.name}</Text>
                         <View>
                             {this.state.novaButtonDisabled ? (
                                 <FlatList
@@ -95,5 +95,9 @@ const styles = StyleSheet.create({
         padding: 20,
         alignItems: "center",
         textAlign: "center",
-    }
+    },
+    title: {
+        fontSize: 15,
+        fontWeight: "bold",
+    },
 });
