@@ -35,8 +35,6 @@ export default class WorkTimeToConfirmForm extends React.Component {
                                                                                       label={status.name}
                                                                                       value={status.id}/>)}
                             </Picker>
-                            <Text>Raison: </Text><TextInput style={styles.textInput}
-                                                            value={this.props.reason}/>
                         </View>
                     )}
                 </View>
