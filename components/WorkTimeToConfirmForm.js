@@ -10,6 +10,7 @@ export default class WorkTimeToConfirmForm extends React.Component {
         this.state = {
             workTimeStatus: [{id: 0, name: "A discuter"}, {id: 1, name: "Confirmé"}],
             currentStatus: this.props.workTime.confirmation,
+            reason: this.props.workTime.reason,
         }
     }
 
@@ -23,6 +24,16 @@ export default class WorkTimeToConfirmForm extends React.Component {
                 currentStatus: value
             }
         )
+    }
+
+    /**
+     * Update the work time reason
+     * @param value
+     */
+    handleTextInputChange = (value) => {
+        this.setState({
+            reason: value,
+        })
     }
 
     render() {
@@ -40,7 +51,8 @@ export default class WorkTimeToConfirmForm extends React.Component {
                                                                                       value={status.id}/>)}
                             </Picker>
                             <Text>Raison: </Text><TextInput style={styles.textInput}
-                                                            value={this.props.workTime.reason != null ? this.props.workTime.reason : ""}/>
+                                                            value={this.state.reason != null ? this.state.reason : ""}
+                                                            onChangeText={this.handleTextInputChange}/>
                         </View>
                     ) : (
                         <View>
