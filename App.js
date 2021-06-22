@@ -8,6 +8,7 @@ import ConsultationsScreen from "./screens/ConsultationsScreen";
 import ReportScreen from "./screens/ReportScreen";
 import LogoutScreen from "./screens/LogoutScreen";
 import ActionsInShiftScreen from "./screens/ActionsInShiftScreen";
+import WorkTimesToConfirmScreen from "./screens/WorkTimesToConfirmScreen";
 
 const Stack = createStackNavigator();
 
@@ -67,14 +68,17 @@ export default class App extends React.Component {
                         </Stack.Screen>
                         <Stack.Screen name="Report" options={{title: "Rapporter"}}>
                             {props => <ReportScreen {...props} user={this.state.user} base={this.state.base}
-                                                           authToken={this.state.authToken}/>}
+                                                    authToken={this.state.authToken}/>}
                         </Stack.Screen>
                         <Stack.Screen name="Logout" options={{title: "Déconnexion"}}>
                             {props => <LogoutScreen {...props} user={this.state.user} base={this.state.base}
-                                                 disconnect={this.disconnect}/>}
+                                                    disconnect={this.disconnect}/>}
                         </Stack.Screen>
                         <Stack.Screen name="ActionsInShift" options={{title: "Actions"}}>
                             {props => <ActionsInShiftScreen {...props} authToken={this.state.authToken}/>}
+                        </Stack.Screen>
+                        <Stack.Screen name="WorkTimesToConfirm" options={{title: "Horaires non confirmés"}}>
+                            {props => <WorkTimesToConfirmScreen {...props} authToken={this.state.authToken}/>}
                         </Stack.Screen>
                     </Stack.Navigator>
                 )}
