@@ -13,6 +13,7 @@ export default class WorkTimeToConfirmForm extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <Text>{this.props.workTime.id}</Text>
                 <Text
                     style={styles.title}>Horaire {this.props.workTime.worktime.type} le {this.props.workTime.date}</Text>
                 <View>
@@ -24,7 +25,7 @@ export default class WorkTimeToConfirmForm extends React.Component {
                                                                                       value={status.id}/>)}
                             </Picker>
                             <Text>Raison: </Text><TextInput style={styles.textInput}
-                                                            value={this.props.reason}/>
+                                                            value={this.props.workTime.reason != null ? this.props.workTime.reason : ""}/>
                         </View>
                     ) : (
                         <View>
