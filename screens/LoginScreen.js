@@ -94,6 +94,9 @@ export default class LoginScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <View>
+                    <Text>Version: eval DOS</Text>
+                </View>
                 {this.state.showBasesErrorMessage ? (
                     <ErrorMessage message={"Une erreur est survenue veuillez vérifier votre connexion internet."}/>
                 ) : (
