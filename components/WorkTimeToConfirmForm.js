@@ -1,25 +1,40 @@
 import React from "react";
 import {View, Text, StyleSheet, TextInput, Button, Picker} from "react-native";
+import axios from "axios";
+import ServerUrl from "../ServerUrl";
 
 export default class WorkTimeToConfirmForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            workTimeStatus: [{id: 0, name: "A discuter"}, {id: 1, name: "Confirmé"}]
+            workTimeStatus: [{id: 0, name: "A discuter"}, {id: 1, name: "Confirmé"}],
+            currentStatus: this.props.workTime.confirmation,
         }
+    }
+
+    /**
+     * Update the work time status
+     * @param value
+     */
+    handlePickerChange = (value) => {
+        this.setState(
+            {
+                currentStatus: value
+            }
+        )
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text>{this.props.workTime.id}</Text>
                 <Text
                     style={styles.title}>Horaire {this.props.workTime.worktime.type} le {this.props.workTime.date}</Text>
                 <View>
-                    {this.props.workTime.confirmation != null ? (
+                    {this.state.currentStatus != null ? (
                         <View>
-                            <Picker style={styles.picker} selectedValue={this.props.workTime.confirmation}>
+                            <Picker style={styles.picker} selectedValue={this.state.currentStatus}
+                                    onValueChange={this.handlePickerChange}>
                                 {this.state.workTimeStatus.map(status => <Picker.Item key={status.id}
                                                                                       label={status.name}
                                                                                       value={status.id}/>)}
@@ -29,7 +44,7 @@ export default class WorkTimeToConfirmForm extends React.Component {
                         </View>
                     ) : (
                         <View>
-                            <Picker style={styles.picker} selectedValue={""}>
+                            <Picker style={styles.picker} selectedValue={""} onValueChange={this.handlePickerChange}>
                                 <Picker.Item key={""} label={""} value={""}/>
                                 {this.state.workTimeStatus.map(status => <Picker.Item key={status.id}
                                                                                       label={status.name}
