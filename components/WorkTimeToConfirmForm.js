@@ -38,6 +38,9 @@ export default class WorkTimeToConfirmForm extends React.Component {
         })
     }
 
+    /**
+     * Send the work time confirmation
+     */
     submitForm = () => {
         axios.post(`${ServerUrl}confirmworkplan`, {
             id: this.props.workTime.id,
@@ -47,6 +50,9 @@ export default class WorkTimeToConfirmForm extends React.Component {
             headers: {
                 'Authorization': `Bearer ${this.props.authToken}`
             }
+        }).then(() => {
+            if (this.state.currentStatus == 1)
+                this.props.removeConfirmedWorkTime(this.props.workTime.id)
         }).catch(() => {
             this.setState({
                 showErrorMessage: true,
@@ -71,9 +77,13 @@ export default class WorkTimeToConfirmForm extends React.Component {
                             {this.state.showErrorMessage ? (
                                 <ErrorMessage message={"Votre raison est trop courte."}/>
                             ) : null}
-                            <Text>Raison: </Text><TextInput style={styles.textInput}
-                                                            value={this.state.reason != null ? this.state.reason : ""}
-                                                            onChangeText={this.handleTextInputChange}/>
+                            {this.state.currentStatus == 0 ? (
+                                <View>
+                                    <Text>Raison: </Text><TextInput style={styles.textInput}
+                                                                    value={this.state.reason != null ? this.state.reason : ""}
+                                                                    onChangeText={this.handleTextInputChange}/>
+                                </View>
+                            ) : null}
                         </View>
                     ) : (
                         <View>

@@ -43,6 +43,22 @@ export default class WorkTimesToConfirmScreen extends React.Component {
         })
     }
 
+    /**
+     * Remove the confirmed work time from the array (to rerender)
+     * @param workTimeId
+     */
+    removeConfirmedWorkTime = (workTimeId) => {
+        let newWorkTimesToConfirm = [...this.state.workTimesToConfirm]
+        let index = newWorkTimesToConfirm.indexOf(workTimeId)
+
+        if (index !== -1) {
+            newWorkTimesToConfirm.splice(index, 1)
+            this.setState({
+                workTimesToConfirm: newWorkTimesToConfirm,
+            }, () => console.log(this.state.workTimesToConfirm))
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -54,11 +70,13 @@ export default class WorkTimesToConfirmScreen extends React.Component {
                             <Text>Vous avez confirmé tous vos horaires.</Text>
                         ) : (
                             <View>
-                                <Text style={styles.blueText}>Il reste {this.state.workTimesNumberToConfirm} horaires à confirmer</Text>
+                                <Text style={styles.blueText}>Il reste {this.state.workTimesNumberToConfirm} horaires à
+                                    confirmer</Text>
                                 <FlatList
                                     data={this.state.workTimesToConfirm}
                                     renderItem={({item}) => (
-                                        <WorkTimeToConfirmForm workTime={item} authToken={this.props.authToken}/>)}
+                                        <WorkTimeToConfirmForm workTime={item} authToken={this.props.authToken}
+                                                               removeConfirmedWorkTime={this.removeConfirmedWorkTime}/>)}
                                     keyExtractor={item => item.id.toString()}
                                 />
                             </View>
